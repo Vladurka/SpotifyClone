@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const albumSchema = new mongoose.Schema(
   {
@@ -20,7 +20,7 @@ const albumSchema = new mongoose.Schema(
     },
     songs: [
       {
-        type: Mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Song",
       },
     ],
