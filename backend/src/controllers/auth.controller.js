@@ -2,11 +2,12 @@ import { User } from "../models/user.model.js";
 
 export const authCallback = async (req, res, next) => {
   try {
+    console.log("BODY:", req.body); // idk why, but the code doesn't work without this
     const { id, firstName, lastName, imageUrl } = req.body;
 
-    const user = await User.findOne({ clerkId: id });
+    const existingUser = await User.findOne({ clerkId: id });
 
-    if (!user) {
+    if (!existingUser) {
       await User.create({
         clerkId: id,
         fullName: `${firstName} ${lastName}`,
@@ -14,8 +15,9 @@ export const authCallback = async (req, res, next) => {
       });
     }
 
-    res.status(201).send({ success: true });
+    res.status(201).json({ success: true });
   } catch (error) {
+    console.error("Error in authCallback:", error); // idk why, but the code doesn't work without this
     next(error);
   }
 };
