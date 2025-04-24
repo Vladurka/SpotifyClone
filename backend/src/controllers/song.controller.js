@@ -1,8 +1,8 @@
 import { Song } from "../models/song.model.js";
 
-export const getAllSongs = (req, res, nex) => {
+export const getAllSongs = async (req, res, nex) => {
   try {
-    const songs = Song.find().sort({ createdAt: -1 });
+    const songs = await Song.find().sort({ createdAt: -1 });
     res.status(200).json(songs);
   } catch (error) {
     next(error);

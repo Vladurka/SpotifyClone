@@ -10,7 +10,7 @@ export const getStats = async (req, res, next) => {
         Album.countDocuments(),
         User.countDocuments(),
 
-        Song.aggregate([
+        await Song.aggregate([
           {
             $unionWith: {
               coll: "albums",
