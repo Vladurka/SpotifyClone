@@ -4,6 +4,7 @@ import { AuthCallback } from "./pages/auth-callback/AuthCallback.tsx";
 import { ChatPage } from "./pages/chat/ChatPage.tsx";
 import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
 import { MainLayout } from "./layout/MainLayout.tsx";
+import { AlbumPage } from "./pages/album/AlbumPage.tsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/albums/:id" element={<AlbumPage />} />
         </Route>
       </Routes>
     </>

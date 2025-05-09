@@ -5,8 +5,6 @@ import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js";
 const router = Router();
 
 router.get("/", requireAdmin, getAllSongs);
-router.get("/featured/:amount", getRandomSongs);
-router.get("/made-for-you/:amount", getRandomSongs);
-router.get("/trending/:amount", getRandomSongs);
+router.get("/random/:amount", getRandomSongs);
 
 export default router;

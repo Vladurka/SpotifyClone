@@ -1,3 +1,4 @@
+import { json } from "express";
 import { Album } from "../models/album.model.js";
 
 export const getAllAlbums = async (req, res, next) => {
@@ -12,7 +13,7 @@ export const getAllAlbums = async (req, res, next) => {
 export const getAlbumById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const album = awaitAlbum.findById(id).populate("songs");
+    const album = await Album.findById(id).populate("songs");
 
     if (!album) {
       return res.status(404).json({ message: "Album not found" });
