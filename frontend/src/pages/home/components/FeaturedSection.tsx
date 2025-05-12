@@ -1,6 +1,6 @@
 import { useMusicStore } from "@/stores/useMusicStore";
 import { FeaturedGridSkeleton } from "@/components/sceletons/FeaturedGridSkeleton";
-import { PlayButton } from "./PlayButton.tsx";
+import { PlayButton } from "./PlayButton";
 
 export const FeaturedSection = () => {
   const { isLoading, featuredSongs, error } = useMusicStore();

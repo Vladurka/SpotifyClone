@@ -6,7 +6,7 @@ import { HeadphonesIcon, Music, Users } from "lucide-react";
 import { useEffect } from "react";
 
 export const FriendsActivity = () => {
-  const { users, fetchUsers } = useChatStore();
+  const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
   const { user } = useUser();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const FriendsActivity = () => {
 
       {!user && <LoginPrompt />}
 
-      {/* <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1">
         <div className="p-4 space-y-4">
           {users.map((user) => {
             const activity = userActivities.get(user.clerkId);
@@ -77,7 +77,7 @@ export const FriendsActivity = () => {
             );
           })}
         </div>
-      </ScrollArea> */}
+      </ScrollArea>
     </div>
   );
 };
