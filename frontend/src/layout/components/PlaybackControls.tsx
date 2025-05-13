@@ -64,7 +64,6 @@ export const PlaybackControls = () => {
   return (
     <footer className="h-20 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4">
       <div className="flex justify-between items-center h-full max-w-[1800px] mx-auto">
-        {/* currently playing song */}
         <div className="hidden sm:flex items-center gap-4 min-w-[180px] w-[30%]">
           {currentSong && (
             <>
@@ -85,7 +84,6 @@ export const PlaybackControls = () => {
           )}
         </div>
 
-        {/* player controls*/}
         <div className="flex flex-col items-center gap-2 flex-1 max-w-full sm:max-w-[45%]">
           <div className="flex items-center gap-4 sm:gap-6">
             <Button
@@ -99,7 +97,7 @@ export const PlaybackControls = () => {
             <Button
               size="icon"
               variant="ghost"
-              className="hover:text-white text-zinc-400"
+              className="hover:text-white text-zinc-400 cursor-pointer"
               onClick={playPrevious}
               disabled={!currentSong}
             >
@@ -108,7 +106,7 @@ export const PlaybackControls = () => {
 
             <Button
               size="icon"
-              className="bg-white hover:bg-white/80 text-black rounded-full h-8 w-8"
+              className="cursor-pointer bg-white hover:bg-white/80 text-black rounded-full h-8 w-8"
               onClick={togglePlay}
               disabled={!currentSong}
             >
@@ -121,7 +119,7 @@ export const PlaybackControls = () => {
             <Button
               size="icon"
               variant="ghost"
-              className="hover:text-white text-zinc-400"
+              className="hover:text-white text-zinc-400 cursor-pointer"
               onClick={playNext}
               disabled={!currentSong}
             >

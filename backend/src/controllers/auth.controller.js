@@ -8,9 +8,14 @@ export const authCallback = async (req, res, next) => {
     const existingUser = await User.findOne({ clerkId: id });
 
     if (!existingUser) {
+      const nameParts = [];
+      if (firstName) nameParts.push(firstName);
+      if (lastName) nameParts.push(lastName);
+      const fullName = nameParts.join(" ");
+
       await User.create({
         clerkId: id,
-        fullName: `${firstName} ${lastName}`,
+        fullName,
         imageUrl,
       });
     }

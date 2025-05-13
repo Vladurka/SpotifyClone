@@ -1,44 +1,57 @@
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useRef } from "react";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 export const AudioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const prevSongRef = useRef<string | null>(null);
+  const prevSongUrlRef = useRef<string | null>(null);
 
   const { currentSong, isPlaying, playNext } = usePlayerStore();
 
   useEffect(() => {
-    if (isPlaying) audioRef.current?.play();
-    else audioRef.current?.pause();
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.play().catch((err) => console.error("Failed to play audio:", err));
+    } else {
+      audio.pause();
+    }
   }, [isPlaying]);
 
   useEffect(() => {
     const audio = audioRef.current;
+    if (!audio) return;
 
     const handleEnded = () => {
       playNext();
     };
 
-    audio?.addEventListener("ended", handleEnded);
-
-    return () => audio?.removeEventListener("ended", handleEnded);
+    audio.addEventListener("ended", handleEnded);
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
   }, [playNext]);
 
   useEffect(() => {
-    if (!audioRef.current || !currentSong) return;
-
     const audio = audioRef.current;
+    const audioUrl = currentSong?.audioUrl;
 
-    const isSongChange = prevSongRef.current !== currentSong?.audioUrl;
-    if (isSongChange) {
-      audio.src = currentSong?.audioUrl;
-      audio.currentTime = 0;
+    if (!audio || !audioUrl) return;
 
-      prevSongRef.current = currentSong?.audioUrl;
+    const isNewTrack = prevSongUrlRef.current !== audioUrl;
 
-      if (isPlaying) audio.play();
+    if (isNewTrack) {
+      prevSongUrlRef.current = audioUrl;
+      audio.src = audioUrl;
+      audio.load();
+
+      if (isPlaying) {
+        audio
+          .play()
+          .catch((err) => console.error("Error playing new track:", err));
+      }
     }
   }, [currentSong, isPlaying]);
 
-  return <audio ref={audioRef} />;
+  return <audio ref={audioRef} style={{ display: "none" }} />;
 };

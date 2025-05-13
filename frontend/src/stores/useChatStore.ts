@@ -26,7 +26,7 @@ const baseURL =
   import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
 
 const socket = io(baseURL, {
-  autoConnect: false, // only connect if user is authenticated
+  autoConnect: false,
   withCredentials: true,
 });
 
@@ -120,6 +120,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     if (!socket) return;
 
     socket.emit("send_message", { receiverId, senderId, content });
+    console.log("Message sent " + content);
   },
 
   fetchMessages: async (userId: string) => {

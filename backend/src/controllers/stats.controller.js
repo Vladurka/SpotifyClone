@@ -1,5 +1,5 @@
-import { Song } from "../models/song.model.js";
 import { Album } from "../models/album.model.js";
+import { Song } from "../models/song.model.js";
 import { User } from "../models/user.model.js";
 
 export const getStats = async (req, res, next) => {
@@ -10,7 +10,7 @@ export const getStats = async (req, res, next) => {
         Album.countDocuments(),
         User.countDocuments(),
 
-        await Song.aggregate([
+        Song.aggregate([
           {
             $unionWith: {
               coll: "albums",
@@ -20,7 +20,6 @@ export const getStats = async (req, res, next) => {
           {
             $group: {
               _id: "$artist",
-              count: { $sum: 1 },
             },
           },
           {
@@ -30,10 +29,10 @@ export const getStats = async (req, res, next) => {
       ]);
 
     res.status(200).json({
-      totalSongs,
       totalAlbums,
+      totalSongs,
       totalUsers,
-      uniqueArtists: uniqueArtists[0]?.count || 0,
+      totalArtists: uniqueArtists[0]?.count || 0,
     });
   } catch (error) {
     next(error);

@@ -83,9 +83,9 @@ export const AlbumPage = () => {
                 currentAlbum?.songs.some(
                   (song) => song._id === currentSong?._id
                 ) ? (
-                  <Pause className="h-7 w-7 text-black" />
+                  <Pause className="h-7 w-7 text-black cursor-pointer" />
                 ) : (
-                  <Play className="h-7 w-7 text-black" />
+                  <Play className="h-7 w-7 text-black cursor-pointer" />
                 )}
               </Button>
             </div>
